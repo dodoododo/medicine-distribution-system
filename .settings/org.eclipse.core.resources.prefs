@@ -1,2 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/view/cart.jsp=UTF-8
+encoding//src/main/webapp/view/checkout.jsp=UTF-8
+encoding//src/main/webapp/view/footer.jsp=UTF-8
+encoding//src/main/webapp/view/login.jsp=UTF-8
+encoding//src/main/webapp/view/profile.jsp=UTF-8
+encoding//src/main/webapp/view/register.jsp=UTF-8
 encoding/<project>=UTF-8
