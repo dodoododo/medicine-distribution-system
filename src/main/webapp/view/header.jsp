@@ -55,7 +55,7 @@
 					        </a>
 					    <% } %>
 					    
-					    <a href="<%=contextPath%>/profile.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					    <a href="<%=contextPath%>/profile?id=<%=currentUser.getId()%>" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
 					        <i class="fas fa-user-circle icon-med fs-3 me-1"></i>
 					    </a>
 						
