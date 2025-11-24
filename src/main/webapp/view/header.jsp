@@ -24,17 +24,17 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3">
-                <a href="<%=contextPath%>/" class="fw-bold fs-4 text-decoration-none"><i class="fas fa-pills icon-med me-2"></i>Thuốc Y Shop</a>
+                <a href="<%=contextPath%>/" class="fw-bold fs-4 text-decoration-none"><i class="fas fa-pills icon-med me-2"></i>Sức Khỏe Việt</a>
             </div>
             <div class="col-md-6">
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Tìm sản phẩm..." aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="col-md-3 text-end">
                 <% if (session.getAttribute("user") == null) { %>
-                    <a href="<%=contextPath%>/login" class="me-3"><i class="fas fa-user icon-med"></i> Đăng nhập</a>
+                    <a href="<%=contextPath%>/login" class="me-3" style="text-decoration: none;"><i class="fas fa-user icon-med"></i> Đăng nhập</a>
                 <% } else { %>
                     <a href="/profile.jsp" class="me-3"><i class="fas fa-user-circle icon-med fs-3"></i></a>
                     <a href="/cart.jsp" class="me-3"><i class="fas fa-shopping-cart icon-med"></i> Giỏ hàng</a>
@@ -57,7 +57,7 @@
                 <p>Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.</p>
             </div>
             <div class="modal-footer">
-                <a href="/login.jsp" class="btn btn-primary">Đăng nhập</a>
+                <a href="<%=contextPath%>/login" class="btn btn-primary">Đăng nhập</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
