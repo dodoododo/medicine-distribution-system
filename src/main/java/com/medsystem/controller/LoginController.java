@@ -9,33 +9,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import com.medsystem.model.bean.User;
+import com.medsystem.model.bo.AuthBO;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-//    private final authBO authBO = new authBO();
+    private final AuthBO authBO = new AuthBO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/view/login.jsp").forward(req, resp);
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String email = req.getParameter("email");
-//        String password = req.getParameter("password");
-//
-//        try {
-//            User user = authBO.login(email, password); // Gọi BO để xử lý login
-//            HttpSession session = req.getSession();
-//            session.setAttribute("user", user); // Lưu object User vào session (hoặc chỉ username nếu cần)
-//            if (user.isAdmin()) { // Giả sử User có method isAdmin() để kiểm tra role (true cho admin)
-//                resp.sendRedirect("/admin/dashboard.jsp");
-//            } else {
-//                resp.sendRedirect("/");
-//            }
-//        } catch (Exception e) {
-//            req.setAttribute("error", e.getMessage());
-//            doGet(req, resp); // Forward lại trang login với error
-//        }
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+
+        try {
+            User user = authBO.login(email, password);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user); // lưu session
+
+            if (user.isAdmin()) {
+                resp.sendRedirect(req.getContextPath() + "/admin/dashboard.jsp");
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/");
+            }
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/view/login.jsp").forward(req, resp);
+        }
+    }
 }

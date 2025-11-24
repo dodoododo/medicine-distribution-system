@@ -15,7 +15,7 @@ public class ProductDAO {
     // Lấy danh sách tất cả sản phẩm
     public List<Product> getAllProducts() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products";
+        String sql = "SELECT * FROM products WHERE is_active = 1";
 
         // Sử dụng try-with-resources để tự động đóng kết nối
         try (Connection conn = ConnectJDBC.getConnection();
@@ -32,6 +32,8 @@ public class ProductDAO {
                 p.setStockQuantity(rs.getInt("stock_quantity"));
                 p.setImageUrl(rs.getString("image_url"));
                 p.setManufacturer(rs.getString("manufacturer"));
+                p.setExpiryDate(rs.getString("expiry_date"));
+                p.setActive(rs.getBoolean("is_active"));
                 
                 list.add(p);
             }

@@ -23,7 +23,7 @@
                     <h4><i class="fas fa-sign-in-alt icon-med"></i> Đăng nhập</h4>
                 </div>
                 <div class="card-body">
-                    <form action="<%=request.getContextPath()%>/LoginServlet" method="POST">
+                    <form action="<%=request.getContextPath()%>/login" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required>
