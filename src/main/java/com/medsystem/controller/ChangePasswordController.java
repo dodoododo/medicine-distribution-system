@@ -25,6 +25,13 @@ public class ChangePasswordController extends HttpServlet {
             return;
         }
 
+        String idParam = req.getParameter("id");
+        if (idParam == null || !idParam.equals(String.valueOf(currentUser.getId()))) {
+            // Nếu id trên URL khác với id user hiện tại → redirect về home
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+
         req.getRequestDispatcher("/view/changepassword.jsp").forward(req, resp);
     }
 
