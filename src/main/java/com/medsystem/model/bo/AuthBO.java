@@ -12,4 +12,11 @@ public class AuthBO {
         }
         return authDAO.login(email, password);
     }
+    
+    public User register(String fullName, String email, String password, String phone, String address) throws Exception {
+        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            throw new Exception("Email và mật khẩu không được để trống!");
+        }	
+        return authDAO.register(fullName, email, password, phone, address);
+    }
 }

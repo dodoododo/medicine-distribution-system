@@ -22,7 +22,7 @@
                     <h4><i class="fas fa-user-plus icon-med"></i> Đăng ký</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/RegisterServlet" method="POST">
+                    <form action="<%=contextPath%>/register" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên</label>
                             <input type="text" class="form-control" id="name" name="name" required>
