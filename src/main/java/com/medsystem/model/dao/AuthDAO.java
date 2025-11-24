@@ -33,4 +33,37 @@ public class AuthDAO {
             }
         }
     }
+    // Đăng ký user mới
+    public User register(String fullName, String email, String password, String phone, String address) throws Exception {
+        // Kiểm tra email đã tồn tại
+        String checkSql = "SELECT id FROM users WHERE email = ?";
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement checkPs = conn.prepareStatement(checkSql)) {
+            checkPs.setString(1, email);
+            ResultSet rs = checkPs.executeQuery();
+            if (rs.next()) {
+                throw new Exception("Email đã được sử dụng!");
+            }
+        }
+
+        String sql = "INSERT INTO users(full_name, email, password, phone, address, role, created_at) " +
+                     "VALUES(?, ?, ?, ?, ?, 0, NOW())"; // role = 0 = user
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, fullName);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4, phone);
+            ps.setString(5, address);
+            ps.executeUpdate();
+
+            ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                int id = keys.getInt(1);
+                return new User(id, fullName, email, password, phone, address, 0, new Timestamp(System.currentTimeMillis()));
+            } else {
+                throw new Exception("Đăng ký thất bại!");
+            }
+        }
+    }
 }
