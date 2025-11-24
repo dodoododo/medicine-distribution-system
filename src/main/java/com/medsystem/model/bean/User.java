@@ -1,5 +1,7 @@
 package com.medsystem.model.bean;
 
+import java.sql.Timestamp;
+
 public class User {
     private int id;
     private String fullName;
@@ -7,11 +9,14 @@ public class User {
     private String password;
     private String phone;
     private String address;
-    private String role; // "ADMIN" hoặc "CUSTOMER"
+    private int role; // 1 = admin, 0 = user
+    private Timestamp createdAt;
 
+    // 1. Constructor rỗng
     public User() {}
 
-    public User(int id, String fullName, String email, String password, String phone, String address, String role) {
+    // 2. Constructor đầy đủ
+    public User(int id, String fullName, String email, String password, String phone, String address, int role, Timestamp createdAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -19,8 +24,10 @@ public class User {
         this.phone = phone;
         this.address = address;
         this.role = role;
+        this.createdAt = createdAt;
     }
 
+    // 3. Getters và Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -39,10 +46,19 @@ public class User {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public int getRole() { return role; }
+    public void setRole(int role) { this.role = role; }
 
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
+    // 4. Kiểm tra người dùng có phải admin không
     public boolean isAdmin() {
-        return "ADMIN".equalsIgnoreCase(role);
+        return role == 1;
+    }
+
+    // 5. Kiểm tra người dùng là user thường
+    public boolean isUser() {
+        return role == 0;
     }
 }

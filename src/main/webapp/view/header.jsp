@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String contextPath = request.getContextPath();
+    com.medsystem.model.bean.User currentUser = (com.medsystem.model.bean.User) session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -14,7 +15,7 @@
         body { font-family: 'Roboto', sans-serif; background-color: #F8F9FA; }
         .btn-primary { background-color: #4CAF50; border-color: #4CAF50; }
         .btn-secondary { background-color: #3FA7F5; border-color: #3FA7F5; }
-        a { color: #3FA7F5; }
+        a { color: #3FA7F5; text-decoration: none; }
         .header-bg { background-color: #FFFFFF; border-bottom: 1px solid #E0E0E0; }
         .icon-med { color: #4CAF50; }
     </style>
@@ -24,21 +25,45 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3">
-                <a href="<%=contextPath%>/" class="fw-bold fs-4 text-decoration-none"><i class="fas fa-pills icon-med me-2"></i>Sức Khỏe Việt</a>
+                <a href="<%=contextPath%>/" class="fw-bold fs-4 text-decoration-none">
+                    <i class="fas fa-pills icon-med me-2"></i>Sức Khỏe Việt
+                </a>
             </div>
             <div class="col-md-6">
-                <form class="d-flex">
+                <form class="d-flex" action="<%=contextPath%>/">
                     <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="col-md-3 text-end">
-                <% if (session.getAttribute("user") == null) { %>
+                <% if (currentUser == null) { %>
                     <a href="<%=contextPath%>/login" class="me-3" style="text-decoration: none;"><i class="fas fa-user icon-med"></i> Đăng nhập</a>
                 <% } else { %>
-                    <a href="/profile.jsp" class="me-3"><i class="fas fa-user-circle icon-med fs-3"></i></a>
-                    <a href="/cart.jsp" class="me-3"><i class="fas fa-shopping-cart icon-med"></i> Giỏ hàng</a>
-                    <a href="/LogoutServlet"><i class="fas fa-sign-out-alt icon-med"></i> Đăng xuất</a>
+					<div class="d-flex align-items-center justify-content-end">
+					    <a href="<%=contextPath%>/cart.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					        <i class="fas fa-shopping-cart icon-med me-1"></i>
+					    </a>
+					
+					    <% if (currentUser.isAdmin()) { %>
+					        <a href="<%=contextPath%>/admin/dashboard.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					            <i class="fas fa-chart-bar icon-med me-1"></i>
+					            <span>Dashboard</span>
+					        </a>
+					        <a href="<%=contextPath%>/admin/orders.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					            <i class="fas fa-box icon-med me-1"></i>
+					            <span>Đơn hàng</span>
+					        </a>
+					    <% } %>
+					    
+					    <a href="<%=contextPath%>/profile.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					        <i class="fas fa-user-circle icon-med fs-3 me-1"></i>
+					    </a>
+						
+					    <a href="<%=contextPath%>/logout" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					        <i class="fas fa-sign-out-alt icon-med me-1"></i>
+					        <span>Đăng xuất</span>
+					    </a>
+					</div>
                 <% } %>
             </div>
         </div>

@@ -1,7 +1,5 @@
 package com.medsystem.controller;
 
-//import com.medsystem.bo.authBO;
-//import com.medsystem.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
