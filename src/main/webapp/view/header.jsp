@@ -95,9 +95,37 @@
 
             <div class="nav-right">
                 <input type="text" class="search-input" placeholder="Search here...">
-                <span class="icon">❤</span>
-                <span class="icon">🛒</span>
-                <span class="icon">👤</span>
+                <% if (currentUser == null) { %>
+                    <a href="<%=contextPath%>/login" class="me-3" style="text-decoration: none;"><i class="fas fa-user icon-med"></i> Đăng nhập</a>
+                <% } else { %>
+					<div class="d-flex align-items-center justify-content-end">
+						<span class="icon">❤</span>
+					    <a href="<%=contextPath%>/cart.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					        <span class="icon">🛒</span>
+					    </a>
+					    <span class="icon">👤</span>
+					
+					    <% if (currentUser.isAdmin()) { %>
+					        <a href="<%=contextPath%>/admin/dashboard.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					            <i class="fas fa-chart-bar icon-med me-1"></i>
+					            <span>Dashboard</span>
+					        </a>
+					        <a href="<%=contextPath%>/admin/orders.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					            <i class="fas fa-box icon-med me-1"></i>
+					            <span>Đơn hàng</span>
+					        </a>
+					    <% } %>
+					    
+					    <a href="<%=contextPath%>/profile?id=<%=currentUser.getId()%>" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					        <i class="fas fa-user-circle icon-med fs-3 me-1"></i>
+					    </a>
+						
+					    <a href="<%=contextPath%>/logout" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
+					        <i class="fas fa-sign-out-alt icon-med me-1"></i>
+					        <span>Đăng xuất</span>
+					    </a>
+					</div>
+                <% } %>
             </div>
         </div>
     </header>

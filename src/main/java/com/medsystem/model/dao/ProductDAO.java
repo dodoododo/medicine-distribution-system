@@ -23,7 +23,7 @@ public class ProductDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Product p = new Product();
+                Product p = new Product(0, 0, sql, sql, 0, 0, sql, sql, sql, false);
                 p.setId(rs.getInt("id"));
                 p.setCategoryId(rs.getInt("category_id")); // Chú ý tên cột trong DB là category_id
                 p.setName(rs.getString("name"));
