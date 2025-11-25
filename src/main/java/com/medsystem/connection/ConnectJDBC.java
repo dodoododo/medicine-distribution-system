@@ -11,7 +11,7 @@ public class ConnectJDBC {
     private static final int PORT = 3306; // Thay bằng port của bạn
     private static final String DB_NAME = "medsystem_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "123456";
 
     // URL kết nối đầy đủ các tham số quan trọng
     // useUnicode=true&characterEncoding=UTF-8: Để lưu/đọc tiếng Việt không lỗi
