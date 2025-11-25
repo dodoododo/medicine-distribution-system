@@ -1,5 +1,7 @@
 package com.medsystem.model.bean;
 
+import java.sql.Date;
+
 public class Product {
     private int id;
     private int categoryId;
@@ -7,30 +9,31 @@ public class Product {
     private String description;
     private double price;
     private int stockQuantity;
+    private Category category; // thêm trường Category
     private String imageUrl;
     private String manufacturer;
-    private String expiryDate;
+    private Date expiryDate;
     private boolean isActive;
 
-    // 1. Constructor rỗng
     public Product() {}
 
-    // 2. Constructor đầy đủ
-    public Product(int id, int categoryId, String name, String description, double price, int stockQuantity, String imageUrl, String manufacturer,
-            String expiryDate, boolean isActive) {
-        this.id = id;
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-        this.imageUrl = imageUrl;
-        this.manufacturer = manufacturer;
-        this.expiryDate = expiryDate;
-        this.isActive = isActive;
-    }
+    public Product(int id, int categoryId, String name, String description, double price, int stockQuantity,
+            String imageUrl, String manufacturer, Date expiryDate, boolean isActive) {
+	 this.id = id;
+	 this.categoryId = categoryId;
+	 this.name = name;
+	 this.description = description;
+	 this.price = price;
+	 this.stockQuantity = stockQuantity;
+	 this.imageUrl = imageUrl;
+	 this.manufacturer = manufacturer;
+	 this.expiryDate = expiryDate;
+	 this.isActive = isActive;
+	 this.category = null; // category sẽ gán sau bằng setCategory()
+	}
 
-    // 3. Getters và Setters (Bắt buộc để JSP truy cập)
+
+    // --- Getter / Setter ---
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -49,14 +52,21 @@ public class Product {
     public int getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
 
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
+
+    public String getCategoryName() { 
+        return category != null ? category.getName() : ""; 
+    }
+
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     public String getManufacturer() { return manufacturer; }
     public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
-    
-    public String getExpiryDate() { return expiryDate; }
-    public void setExpiryDate(String expiryDate) { this.expiryDate = expiryDate; }
+
+    public Date getExpiryDate() { return expiryDate; }
+    public void setExpiryDate(Date expiryDate) { this.expiryDate = expiryDate; }
 
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }

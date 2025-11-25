@@ -3,15 +3,15 @@ package com.medsystem.model.bo;
 import com.medsystem.model.bean.Product;
 import com.medsystem.model.dao.ProductDAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProductBO {
-    
-    private ProductDAO productDAO = new ProductDAO();
+    private final ProductDAO dao = new ProductDAO();
 
-    public List<Product> getProductList() {
-        // Tại đây có thể thêm logic kiểm tra nghiệp vụ nếu cần
-        // Ví dụ: Chỉ lấy sản phẩm đang hoạt động (is_active = true)
-        return productDAO.getAllProducts();
-    }
+    public List<Product> getAllProducts() throws SQLException { return dao.getAllProducts(); }
+    public Product getProductById(int id) throws SQLException { return dao.getProductById(id); }
+    public void addProduct(Product p) throws SQLException { dao.insertProduct(p); }
+    public void updateProduct(Product p) throws SQLException { dao.updateProduct(p); }
+    public void deleteProduct(int id) throws SQLException { dao.deleteProduct(id); }
 }

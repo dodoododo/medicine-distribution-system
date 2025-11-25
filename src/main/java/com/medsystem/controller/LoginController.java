@@ -27,12 +27,14 @@ public class LoginController extends HttpServlet {
         try {
             User user = authBO.login(email, password);
             HttpSession session = req.getSession();
-            session.setAttribute("user", user); // lưu session
+            session.setAttribute("user", user);
+            session.setAttribute("role", user.isAdmin() ? "ADMIN" : "CUSTOMER"); // thêm role riêng trong session
 
             if (user.isAdmin()) {
-                resp.sendRedirect(req.getContextPath() + "/admin/dashboard.jsp");
+                req.setAttribute("mainPage", "/view/admin/category_list.jsp");
+                req.getRequestDispatcher("/view/admin/admin_layout.jsp").forward(req, resp);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/");
+                resp.sendRedirect(req.getContextPath() + "/"); // student về home
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
