@@ -9,7 +9,7 @@ public class ProductBO {
     
     private ProductDAO productDAO = new ProductDAO();
 
-    public List<Product> getProductList() {
+	public List<Product> getProductList() {
         // Tại đây có thể thêm logic kiểm tra nghiệp vụ nếu cần
         // Ví dụ: Chỉ lấy sản phẩm đang hoạt động (is_active = true)
         return productDAO.getAllProducts();

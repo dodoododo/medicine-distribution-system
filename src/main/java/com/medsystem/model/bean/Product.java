@@ -12,8 +12,6 @@ public class Product {
     private String expiryDate;
     private boolean isActive;
 
-    // 1. Constructor rỗng
-    public Product() {}
 
     // 2. Constructor đầy đủ
     public Product(int id, int categoryId, String name, String description, double price, int stockQuantity, String imageUrl, String manufacturer,
@@ -28,6 +26,13 @@ public class Product {
         this.manufacturer = manufacturer;
         this.expiryDate = expiryDate;
         this.isActive = isActive;
+    }
+    
+    public Product(int id, String name, double price, String imageUrl) {
+    	this.id = id;
+    	this.name = name;
+    	this.price = price;
+    	this.imageUrl = imageUrl;
     }
 
     // 3. Getters và Setters (Bắt buộc để JSP truy cập)
