@@ -31,10 +31,9 @@ public class LoginController extends HttpServlet {
             session.setAttribute("role", user.isAdmin() ? "ADMIN" : "CUSTOMER"); // thêm role riêng trong session
 
             if (user.isAdmin()) {
-                req.setAttribute("mainPage", "/view/admin/category_list.jsp");
-                req.getRequestDispatcher("/view/admin/admin_layout.jsp").forward(req, resp);
+                resp.sendRedirect(req.getContextPath() + "/admin");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/"); // student về home
+                resp.sendRedirect(req.getContextPath() + "/"); // user về home
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

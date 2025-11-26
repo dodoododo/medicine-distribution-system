@@ -26,15 +26,12 @@ public class RegisterController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String phone = req.getParameter("phone");
-        String address = ""; // nếu muốn có input address thì chỉnh form register
+        String address = ""; // Có thể thêm input address nếu muốn
 
         try {
             User user = authBO.register(fullName, email, password, phone, address);
-
             HttpSession session = req.getSession();
-            session.setAttribute("user", user);
-            session.setAttribute("role", user.isAdmin() ? "ADMIN" : "CUSTOMER"); // set role cho session
-
+            session.setAttribute("user", user); // lưu session
             resp.sendRedirect(req.getContextPath() + "/"); // về home
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

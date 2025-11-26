@@ -50,6 +50,12 @@
             <label for="stockQuantity" class="form-label">Số lượng</label>
             <input type="number" class="form-control" name="stockQuantity" value="${product != null ? product.stockQuantity : 0}" required>
         </div>
+        
+        <!-- Ảnh -->
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Ảnh</label>
+            <input type="text" class="form-control" name="imageUrl" value="${product != null ? product.imageUrl : 0}">
+        </div>
 
         <!-- Nhà sản xuất -->
         <div class="mb-3">

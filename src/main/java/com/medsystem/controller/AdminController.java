@@ -5,37 +5,28 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Servlet implementation class AdminController
- */
-@WebServlet("/AdminController")
+@WebServlet("/admin")
 public class AdminController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminController() {
-        super();
-        // TODO Auto-generated constructor stub
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Lấy session hiện tại, không tạo mới
+        HttpSession session = request.getSession(false);
+        Object role = (session != null) ? session.getAttribute("role") : null;
+
+        // Nếu không phải admin → logout
+        if (role == null || !"ADMIN".equals(role.toString())) {
+            response.sendRedirect(request.getContextPath() + "/logout");
+            return;
+        }
+
+        // Admin hợp lệ → chuyển tới dashboard mặc định
+        request.setAttribute("mainPage", "/view/admin/category_list.jsp");
+        request.getRequestDispatcher("/view/admin/admin_layout.jsp").forward(request, response);
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
