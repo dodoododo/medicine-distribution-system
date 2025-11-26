@@ -17,9 +17,11 @@ public class ProfileController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User currentUser = (User) session.getAttribute("user");
+        // Lấy session hiện tại, không tạo session mới
+        HttpSession session = req.getSession(false);
+        User currentUser = (session != null) ? (User) session.getAttribute("user") : null;
 
+        // Nếu chưa login → redirect login
         if (currentUser == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
@@ -27,31 +29,29 @@ public class ProfileController extends HttpServlet {
 
         // Lấy id từ query string, nếu không có thì dùng id của currentUser
         String idParam = req.getParameter("id");
-        int userId;
+        int userId = (idParam != null) ? Integer.parseInt(idParam) : currentUser.getId();
+
         try {
             if (idParam != null && !idParam.isEmpty()) {
                 userId = Integer.parseInt(idParam);
-            } else {
-                userId = currentUser.getId();
             }
         } catch (NumberFormatException e) {
             req.setAttribute("error", "ID không hợp lệ!");
-            req.getRequestDispatcher("/view/profile.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+
+        // Chỉ cho phép user xem profile của chính mình
+        if (userId != currentUser.getId()) {
+            req.setAttribute("error", "Bạn không có quyền xem profile này!");
+            resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
 
         try {
-            // Chỉ cho phép user xem profile của chính mình
-            if (userId != currentUser.getId()) {
-                req.setAttribute("error", "Bạn không có quyền xem profile này!");
-                req.getRequestDispatcher("/view/profile.jsp").forward(req, resp);
-                return;
-            }
-
             User user = userBO.getUserById(userId);
             req.setAttribute("user", user);
             req.getRequestDispatcher("/view/profile.jsp").forward(req, resp);
-
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/view/profile.jsp").forward(req, resp);

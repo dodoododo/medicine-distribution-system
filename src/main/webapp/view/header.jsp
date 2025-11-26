@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    String contextPath = request.getContextPath();
-    com.medsystem.model.bean.User currentUser = (com.medsystem.model.bean.User) session.getAttribute("user");
+	String contextPath = request.getContextPath();
+    com.medsystem.model.bean.User currentUser = null;
+    HttpSession sessionObj = request.getSession(false); // false → không tạo session mới
+    if (sessionObj != null) {
+        currentUser = (com.medsystem.model.bean.User) sessionObj.getAttribute("user");
+    }
 %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -11,6 +16,7 @@
     <title>Website Bán Thuốc Y - Đông Tây Y</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://thumbs.dreamstime.com/b/medical-cross-helping-hands-charity-logo-compassionate-design-featuring-embraced-symbolizing-care-support-charitable-aid-380842391.jpg">
     <style>
         body { font-family: 'Roboto', sans-serif; background-color: #F8F9FA; }
         .btn-primary { background-color: #4CAF50; border-color: #4CAF50; }
@@ -45,7 +51,7 @@
     <div class="col-md-4">
         <% if (currentUser == null) { %>
             <div class="d-flex justify-content-end gap-3">
-                <a href="<%=contextPath%>/login" class="d-inline-flex align-items-center" style="text-decoration: none">
+                <a href="<%=contextPath%>/login" class="d-inline-flex align-items-center gap-1" style="text-decoration: none">
                     <i class="fas fa-user icon-med"></i> Đăng nhập
                 </a>
             </div>

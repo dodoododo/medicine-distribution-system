@@ -8,7 +8,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "DashboardController", urlPatterns = {"/admin"})
+@WebServlet(name = "DashboardController", urlPatterns = {"/admin/dashboard"})
 public class DashboardController extends HttpServlet {
     private final DashboardDAO dao = new DashboardDAO();
 
