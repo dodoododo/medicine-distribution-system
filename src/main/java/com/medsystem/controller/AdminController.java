@@ -16,7 +16,7 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
 
         // Lấy session hiện tại, không tạo mới
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Object role = (session != null) ? session.getAttribute("role") : null;
 
         // Nếu không phải admin → logout
@@ -24,9 +24,7 @@ public class AdminController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/logout");
             return;
         }
-
-        // Admin hợp lệ → chuyển tới dashboard mặc định
-        request.setAttribute("mainPage", "/view/admin/category_list.jsp");
-        request.getRequestDispatcher("/view/admin/admin_layout.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/admin/categories");
+        return;
     }
 }
