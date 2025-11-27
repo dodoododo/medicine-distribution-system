@@ -4,7 +4,7 @@
     com.medsystem.model.bean.User user = (com.medsystem.model.bean.User) request.getAttribute("user");
 %>
 
-<main class="container mt-5">
+<main class="container mt-5" style="padding-bottom: 40px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">

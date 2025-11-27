@@ -4,7 +4,7 @@
 
 <%@ include file="/view/header.jsp" %>
 
-<main class="container mt-4">
+<main class="container mt-4" style="padding-bottom: 40px;">
     <!-- Banner -->
     <div id="carouselExample" class="carousel slide mb-4">
         <!-- Như mẫu, giữ nguyên -->
