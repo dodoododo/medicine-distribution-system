@@ -26,6 +26,6 @@ public class AdminFilter implements Filter {
         }
 
         // Nếu không phải admin, redirect về login
-        response.sendRedirect(request.getContextPath() + "/view/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/logout");
     }
 }

@@ -14,7 +14,7 @@
     </style>
 </head>
 
-<main class="container mt-5">
+<main class="container mt-5" style="margin-bottom: 40px;">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
