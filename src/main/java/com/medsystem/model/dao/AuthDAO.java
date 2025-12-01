@@ -26,7 +26,7 @@ public class AuthDAO {
                         rs.getString("phone"),
                         rs.getString("address"),
                         rs.getInt("role"),               // role là int
-                        rs.getTimestamp("created_at")   // createdAt
+                        rs.getTimestamp("created_at")  // createdAt                        
                 );
             } else {
                 throw new Exception("Email hoặc mật khẩu không đúng!");
@@ -65,5 +65,6 @@ public class AuthDAO {
                 throw new Exception("Đăng ký thất bại!");
             }
         }
+                
     }
 }

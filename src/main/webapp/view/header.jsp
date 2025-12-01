@@ -100,9 +100,7 @@
                 <% } else { %>
 					<div class="d-flex align-items-center justify-content-end">
 						<span class="icon">❤</span>
-					    <a href="<%=contextPath%>/cart.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
-					        <span class="icon">🛒</span>
-					    </a>
+						<span class="icon" onclick="window.location.href='<%=contextPath%>/view/cart'">🛒</span>
 					    <span class="icon">👤</span>
 					
 					    <% if (currentUser.isAdmin()) { %>

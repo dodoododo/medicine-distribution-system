@@ -55,10 +55,15 @@
 	                        Giá: ${p.price} VNĐ <br>
 	                        Loại: ${categoryMap[p.categoryId]}
 	                    </p>
-	
-	                    <button class="btn btn-primary add-to-cart" data-id="${p.id}">
-	                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ
-	                    </button>
+	                   
+	                    <button class="btn btn-primary add-to-cart "
+	                    
+						        data-id="${p.id}"
+						        data-name="${p.name}"
+						        data-price="${p.price}"
+						        data-img="${p.imageUrl}">
+						    <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+						</button>
 	                </div>
 	            </div>
 	        </div>
@@ -70,15 +75,27 @@
 <%@ include file="view/footer.jsp" %>
 
 <script>
-    document.querySelectorAll('.add-to-cart').forEach(btn => {
-        btn.addEventListener('click', () => {
-            <% if (session.getAttribute("user") == null) { %>
-                new bootstrap.Modal(document.getElementById('loginModal')).show();
-            <% } else { %>
-                // AJAX call to AddToCartServlet
-                alert('Thêm thành công!');
-            <% } %>
-        });
-    });
+	document.querySelectorAll('.add-to-cart').forEach(btn => {
+	    btn.addEventListener('click', function() {
+	        <% if (session.getAttribute("user") == null) { %>
+	            new bootstrap.Modal(document.getElementById('loginModal')).show();
+	        <% } else { %>
+		        const productId = this.dataset.id;
+	            const form = document.createElement('form');
+	            form.method = 'POST';
+	            form.action = '<%=request.getContextPath()%>/cart/add';
+	
+	            const input = document.createElement('input');
+	            input.type = 'hidden';
+	            input.name = 'productId';
+	            input.value = productId;
+	
+	            form.appendChild(input);
+	            document.body.appendChild(form);
+	            form.submit();
+	        <% } %>
+	    });
+	});
+
     // JS for filter/sort: AJAX load products
 </script>
