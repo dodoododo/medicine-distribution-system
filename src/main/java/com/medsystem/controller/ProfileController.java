@@ -59,7 +59,9 @@ public class ProfileController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         HttpSession session = req.getSession();
         User currentUser = (User) session.getAttribute("user");
 
@@ -69,24 +71,23 @@ public class ProfileController extends HttpServlet {
         }
 
         String fullName = req.getParameter("fullName");
-        String password = req.getParameter("password");
         String phone = req.getParameter("phone");
         String address = req.getParameter("address");
 
         currentUser.setFullName(fullName);
-        currentUser.setPassword(password);
         currentUser.setPhone(phone);
         currentUser.setAddress(address);
 
         try {
-            userBO.updateUser(currentUser);
-            session.setAttribute("user", currentUser); // Cập nhật session
+            userBO.updateUserInfo(currentUser);     // ⭐ CHỈ UPDATE THÔNG TIN
+            session.setAttribute("user", currentUser);
+
             req.setAttribute("success", "Cập nhật thông tin thành công!");
-            req.setAttribute("user", currentUser);
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
 
+        req.setAttribute("user", currentUser);
         req.getRequestDispatcher("/view/profile.jsp").forward(req, resp);
     }
 }

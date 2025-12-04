@@ -17,30 +17,38 @@ public class UserAdminController extends HttpServlet {
     private final UserBO userBO = new UserBO();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         String action = req.getParameter("action");
+
         try {
             if ("new".equals(action)) {
-                // Form trống để thêm mới
                 req.setAttribute("user", new User());
                 req.setAttribute("formAction", "new");
                 req.setAttribute("mainPage", "/view/admin/user_form.jsp");
+
             } else if ("edit".equals(action)) {
                 int id = Integer.parseInt(req.getParameter("id"));
                 User u = userBO.getUserById(id);
+
                 req.setAttribute("user", u);
                 req.setAttribute("formAction", "edit");
                 req.setAttribute("mainPage", "/view/admin/user_form.jsp");
+
             } else if ("delete".equals(action)) {
                 int id = Integer.parseInt(req.getParameter("id"));
                 userBO.deleteUser(id);
+
                 resp.sendRedirect(req.getContextPath() + "/admin/users");
                 return;
+
             } else {
                 List<User> list = userBO.getAllUsers();
                 req.setAttribute("userList", list);
                 req.setAttribute("mainPage", "/view/admin/user_list.jsp");
             }
+
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
             req.setAttribute("mainPage", "/view/admin/user_list.jsp");
@@ -50,45 +58,67 @@ public class UserAdminController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         req.setCharacterEncoding("UTF-8");
 
         try {
             String formAction = req.getParameter("formAction"); // "new" hoặc "edit"
             String idParam = req.getParameter("id");
+
             String fullName = req.getParameter("fullName");
             String email = req.getParameter("email");
-            String password = req.getParameter("password");
+            String password = req.getParameter("password");   // có thể rỗng
             String phone = req.getParameter("phone");
             String address = req.getParameter("address");
             int role = "1".equals(req.getParameter("role")) ? 1 : 0;
 
             User u;
+
+            // ------------- EDIT USER -------------
             if ("edit".equals(formAction) && idParam != null && !idParam.isEmpty()) {
-                u = userBO.getUserById(Integer.parseInt(idParam));
-            } else {
-                u = new User(); // thêm mới
+
+                int userId = Integer.parseInt(idParam);
+                u = userBO.getUserById(userId);
+
+                // Update thông tin cơ bản
+                u.setFullName(fullName);
+                u.setEmail(email);
+                u.setPhone(phone);
+                u.setAddress(address);
+                u.setRole(role);
+
+                // Nếu admin nhập mật khẩu mới → đổi mật khẩu
+                if (password != null && !password.trim().isEmpty()) {
+                    userBO.updatePassword(userId, password);
+                }
+
+                // Update thông tin user (không đụng vào password)
+                userBO.updateUserInfo(u);
             }
 
-            u.setFullName(fullName);
-            u.setEmail(email);
-            u.setPassword(password);
-            u.setPhone(phone);
-            u.setAddress(address);
-            u.setRole(role);
+            // ------------- ADD USER -------------
+            else {
+                u = new User();
+                u.setFullName(fullName);
+                u.setEmail(email);
+                u.setPassword(password);   // thêm mới bắt buộc cần password
+                u.setPhone(phone);
+                u.setAddress(address);
+                u.setRole(role);
 
-            if ("edit".equals(formAction)) {
-                userBO.updateUser(u);
-            } else {
                 userBO.addUser(u);
             }
 
             resp.sendRedirect(req.getContextPath() + "/admin/users");
+
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
             req.setAttribute("user", new User());
             req.setAttribute("formAction", "new");
             req.setAttribute("mainPage", "/view/admin/user_form.jsp");
+
             req.getRequestDispatcher("/view/admin/admin_layout.jsp").forward(req, resp);
         }
     }

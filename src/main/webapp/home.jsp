@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <%@ include file="/view/header.jsp" %>
 
@@ -42,29 +44,32 @@
 
     <!-- Grid sản phẩm (giả sử loop từ DB) -->
 	<div class="row">
-	    <c:forEach var="p" items="${productList}">
-	        <div class="col-md-3 mb-4">
-	            <div class="card h-100">
-	
-	                <img src="${p.imageUrl}" class="card-img-top"
-	                     alt="${p.name}" style="height: 250px; object-fit: cover;">
-	
-	                <div class="card-body">
-	                    <h5 class="card-title">${p.name}</h5>
-	                    <p class="card-text">
-	                        Giá: ${p.price} VNĐ <br>
-	                        Loại: ${categoryMap[p.categoryId]}
-	                    </p>
-	
-	                    <button class="btn btn-primary add-to-cart" data-id="${p.id}">
-	                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ
-	                    </button>
-	                </div>
-	            </div>
-	        </div>
-	    </c:forEach>
+		<c:forEach var="p" items="${productList}">
+		    <div class="col-md-3 mb-4">
+		        <div class="card h-100">
+		
+		            <img src="${p.imageUrl}" class="card-img-top"
+		                 alt="${p.name}" style="height: 250px; object-fit: cover;">
+		
+		            <div class="card-body">
+		                <h5 class="card-title">${p.name}</h5>
+		                <p class="card-text">
+		                    Giá: <fmt:formatNumber value="${p.price}" type="number" maxFractionDigits="0" /> VNĐ <br>
+		                    Loại: ${categoryMap[p.categoryId]}
+		                </p>
+						<form method="post" action="<%=request.getContextPath()%>/cart" class="add-cart-form">
+						    <input type="hidden" name="action" value="add">
+						    <input type="hidden" name="productId" value="${p.id}">
+   							<input type="hidden" name="quantity" value="1"> 
+						    <button type="submit" class="btn btn-primary">
+						        <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+						    </button>
+						</form>
+		            </div>
+		        </div>
+		    </div>
+		</c:forEach>
 	</div>
-
 </main>
 
 <%@ include file="view/footer.jsp" %>

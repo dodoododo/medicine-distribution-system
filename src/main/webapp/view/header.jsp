@@ -116,7 +116,7 @@
             <% } else { %>
 
                 <!-- Đã đăng nhập -->
-                <a href="<%=contextPath%>/cart" class="icon" title="Giỏ hàng">
+                <a href="<%=contextPath%>/cart?userId=<%=currentUser.getId()%>" class="icon" title="Giỏ hàng">
                     <i class="fas fa-shopping-cart icon-med"></i>
                 </a>
 
