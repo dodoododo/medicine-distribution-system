@@ -75,11 +75,16 @@ public class CartDAO {
                     return mapResultSetToCart(rs);
                 }
             }
+
+            // Nếu không có cart → tạo cart đầu tiên
+            return createCart(userId);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
 
     public Cart createCart(int userId) {
@@ -106,6 +111,31 @@ public class CartDAO {
             e.printStackTrace();
         }
         return newCart;
+    }
+    
+
+    public Cart getCartById(int cartId) throws SQLException {
+        Cart cart = null;
+
+        String sql = "SELECT * FROM cart WHERE id = ?";
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, cartId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                cart = new Cart();
+                cart.setId(rs.getInt("id"));
+                cart.setUserId(rs.getInt("user_id"));
+            }
+        }
+
+        if (cart != null) {
+            cart.setItems(getCartProductsByCartId(cartId));
+        }
+
+        return cart;
     }
 
     public List<CartProduct> getCartProductsByCartId(int cartId) {
@@ -218,6 +248,10 @@ public class CartDAO {
     public Cart getOrCreateCartByUserId(int userId) throws SQLException {
         Cart c = getCartByUserId(userId);
         if (c != null) return c;
+        return createCart(userId);
+    }
+    
+    public Cart createNewCartAfterOrder(int userId) {
         return createCart(userId);
     }
 }

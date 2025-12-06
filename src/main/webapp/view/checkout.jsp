@@ -33,13 +33,12 @@
 
 <%@ include file="/view/header.jsp" %>
 
+<form action="${pageContext.request.contextPath}/order?action=place" method="post">
 <div class="checkout-container">
-
     <!-- BILLING DETAILS -->
     <div class="billing">
         <h3>Thông Tin Giao Hàng</h3>
 
-        <form action="<%=request.getContextPath()%>/placeOrder" method="post">
 
             <input type="text"
                    name="fullName"
@@ -142,10 +141,9 @@
         
 
         <button type="submit" class="btn btn-danger w-100">Đặt Đơn Hàng</button>
-
-        </form>
     </div>
 </div>
+</form>
 
 <%@ include file="/view/footer.jsp" %>
 

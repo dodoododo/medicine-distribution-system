@@ -60,7 +60,7 @@ public class Cart {
         for (CartProduct cp : items) {
             if (cp == null) continue;
             // ưu tiên dùng subTotal nếu đã có, hoặc lấy từ product nếu cần
-            double line = 0.0;
+            int line = 0;
             if (cp.getProduct() != null) {
                 line = cp.getProduct().getPrice() * cp.getQuantity();
             } else {
