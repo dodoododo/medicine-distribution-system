@@ -41,4 +41,9 @@ public class OrderBO {
     public boolean deleteOrder(int id) throws SQLException {
         return orderDAO.deleteOrder(id);
     }
+    
+    public List<Order> getOrdersByUserId(int userId) throws SQLException {
+        return orderDAO.getOrdersByUserId(userId);
+    }
+
 }

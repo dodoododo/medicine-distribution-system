@@ -119,6 +119,10 @@
                 <a href="<%=contextPath%>/cart?userId=<%=currentUser.getId()%>" class="icon" title="Giỏ hàng">
                     <i class="fas fa-shopping-cart icon-med"></i>
                 </a>
+                
+                <a href="<%=contextPath%>/my-orders?userId=<%=currentUser.getId()%>" class="icon" title="Đơn hàng">
+                    <i class="fas fa-truck icon-med"></i>
+                </a>
 
                 <a href="<%=contextPath%>/profile?id=<%=currentUser.getId()%>" class="icon" title="Tài khoản">
                     <i class="fas fa-user-circle icon-med"></i>
