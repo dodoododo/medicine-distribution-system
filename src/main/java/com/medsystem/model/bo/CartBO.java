@@ -23,6 +23,15 @@ public class CartBO {
         }
         return cart;
     }
+    
+    public Cart getNewestCartByUserId(int userId) {
+        Cart cart = cartDAO.getNewestCartByUserId(userId);
+        if (cart != null) {
+            List<CartProduct> items = cartDAO.getCartProductsByCartId(cart.getId());
+            cart.setItems(items);
+        }
+        return cart;
+    }
 
     // Thêm wrapper để xóa sản phẩm qua CartProductBO
     public boolean removeProductFromCart(int cartId, int productId) {

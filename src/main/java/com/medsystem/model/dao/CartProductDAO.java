@@ -24,7 +24,7 @@ public class CartProductDAO {
         Product productDetail = new Product();
         productDetail.setId(rs.getInt("product_id"));
         productDetail.setName(rs.getString("name"));
-        productDetail.setPrice(rs.getDouble("price")); 
+        productDetail.setPrice(rs.getInt("price")); 
         productDetail.setImageUrl(rs.getString("image_url"));
 
         item.setProduct(productDetail);

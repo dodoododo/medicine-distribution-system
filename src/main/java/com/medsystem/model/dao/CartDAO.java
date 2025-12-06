@@ -32,7 +32,7 @@ public class CartDAO {
         Product productDetail = new Product();
         productDetail.setId(rs.getInt("product_id"));
         productDetail.setName(rs.getString("name"));
-        productDetail.setPrice(rs.getDouble("price")); 
+        productDetail.setPrice(rs.getInt("price")); 
         productDetail.setImageUrl(rs.getString("image_url"));
 
         item.setProduct(productDetail);
@@ -51,6 +51,7 @@ public class CartDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     cart = mapResultSetToCart(rs);
+                    System.out.println(cart);
                 } else {
                     cart = createCart(userId);
                 }
@@ -60,6 +61,26 @@ public class CartDAO {
         }
         return cart;
     }
+    
+    public Cart getNewestCartByUserId(int userId) {
+        String sql = "SELECT id, user_id FROM cart WHERE user_id = ? ORDER BY created_at DESC LIMIT 1";
+
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToCart(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public Cart createCart(int userId) {
         String sql = "INSERT INTO cart (user_id) VALUES (?)";

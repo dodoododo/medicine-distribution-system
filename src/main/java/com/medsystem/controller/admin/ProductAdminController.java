@@ -78,7 +78,7 @@ public class ProductAdminController extends HttpServlet {
         int categoryId = Integer.parseInt(req.getParameter("categoryId"));
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        double price = Double.parseDouble(req.getParameter("price"));
+        int price = Integer.parseInt(req.getParameter("price"));
         int stockQuantity = Integer.parseInt(req.getParameter("stockQuantity"));
         String imageUrl = req.getParameter("imageUrl");
         String manufacturer = req.getParameter("manufacturer");

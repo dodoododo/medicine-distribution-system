@@ -42,7 +42,7 @@
         <!-- Giá -->
         <div class="mb-3">
             <label for="price" class="form-label">Giá</label>
-            <input type="number" step="0.01" class="form-control" name="price" value="${product != null ? product.price : 0}" required>
+            <input type="number" step="1000" class="form-control" name="price" value="${product != null ? product.price : 0}" required>
         </div>
 
         <!-- Số lượng -->

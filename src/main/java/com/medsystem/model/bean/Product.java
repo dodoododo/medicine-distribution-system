@@ -7,7 +7,7 @@ public class Product {
     private int categoryId;
     private String name;
     private String description;
-    private double price;
+    private int price;
     private int stockQuantity;
     private Category category; // thêm trường Category
     private String imageUrl;
@@ -17,7 +17,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(int id, int categoryId, String name, String description, double price, int stockQuantity,
+    public Product(int id, int categoryId, String name, String description, int price, int stockQuantity,
             String imageUrl, String manufacturer, Date expiryDate, boolean isActive) {
 	 this.id = id;
 	 this.categoryId = categoryId;
@@ -46,8 +46,8 @@ public class Product {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public int getPrice() { return price; }
+    public void setPrice(int price) { this.price = price; }
 
     public int getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
