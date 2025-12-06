@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderBO {
 
-    private OrderDAO orderDAO = new OrderDAO();
+    private final OrderDAO orderDAO = new OrderDAO();
 
     public int createOrder(Order o) throws SQLException {
         return orderDAO.createOrder(o);
@@ -32,5 +32,13 @@ public class OrderBO {
 
     public boolean updateCart(int id, int cartId, int total) throws SQLException {
         return orderDAO.updateCart(id, cartId, total);
+    }
+    
+    public boolean updateOrder(Order o) throws SQLException {
+        return orderDAO.updateOrder(o);
+    }
+
+    public boolean deleteOrder(int id) throws SQLException {
+        return orderDAO.deleteOrder(id);
     }
 }
