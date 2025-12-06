@@ -68,10 +68,10 @@ public class CartProduct {
         this.product = product;
     }
 
-    public double getSubTotal() {
+    public int getSubTotal() {
         if (product != null) {
             return product.getPrice() * this.quantity;
         }
-        return 0.0;
+        return 0;
     }
 }

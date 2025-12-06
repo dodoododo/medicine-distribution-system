@@ -218,7 +218,8 @@
                 <img src="<%=p.getImageUrl()%>" alt="<%=p.getName()%>">
                 <%=p.getName()%>
             </td>
-            <td><%=p.getPrice()%> VND</td>
+            <td><%= String.format("%,d", p.getPrice()) %> VND</td>
+
 
 
 			<td class="flex-center">
