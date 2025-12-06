@@ -85,6 +85,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/orders">
+                                <i data-feather="truck"></i> Đơn Hàng
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i data-feather="bar-chart-2"></i> Báo cáo
                             </a>

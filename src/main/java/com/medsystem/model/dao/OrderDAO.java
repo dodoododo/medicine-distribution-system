@@ -9,105 +9,185 @@ import java.util.List;
 
 public class OrderDAO {
 
-    // Tạo đơn hàng mới
+    // ====================================================================
+    // CREATE ORDER
+    // ====================================================================
     public int createOrder(Order order) throws SQLException {
+
         String sql = "INSERT INTO orders (cart_id, full_name, phone, shipping_address, total_amount, status, payment) "
                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        Connection conn = ConnectJDBC.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-        ps.setInt(1, order.getCartId());
-        ps.setString(2, order.getFullName());
-        ps.setString(3, order.getPhone());
-        ps.setString(4, order.getShippingAddress());
-        ps.setInt(5, order.getTotalAmount());
-        ps.setString(6, order.getStatus());
-        ps.setBoolean(7, order.isPayment());
+            if (order.getCartId() == null) {
+                ps.setNull(1, Types.INTEGER);
+            } else {
+                ps.setInt(1, order.getCartId());
+            }
 
-        ps.executeUpdate();
+            ps.setString(2, order.getFullName());
+            ps.setString(3, order.getPhone());
+            ps.setString(4, order.getShippingAddress());
+            ps.setInt(5, order.getTotalAmount());
+            ps.setString(6, order.getStatus());
+            ps.setBoolean(7, order.isPayment());
 
-        ResultSet rs = ps.getGeneratedKeys();
-        if (rs.next()) return rs.getInt(1);
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
 
         return 0;
     }
 
-    // Lấy toàn bộ đơn cho admin
+    // ====================================================================
+    // GET ALL ORDERS
+    // ====================================================================
     public List<Order> getAllOrders() throws SQLException {
         List<Order> list = new ArrayList<>();
+
         String sql = "SELECT * FROM orders ORDER BY order_date DESC";
 
-        Connection conn = ConnectJDBC.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            list.add(mapOrder(rs));
+            while (rs.next()) {
+                list.add(mapOrder(rs));
+            }
         }
+
         return list;
     }
 
-    // Lấy order theo ID
+    public boolean updateOrder(Order o) throws SQLException {
+        String sql = "UPDATE orders SET full_name=?, phone=?, shipping_address=?, total_amount=?, status=?, payment=?, cart_id=? WHERE id=?";
+
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, o.getFullName());
+            ps.setString(2, o.getPhone());
+            ps.setString(3, o.getShippingAddress());
+            ps.setInt(4, o.getTotalAmount());
+            ps.setString(5, o.getStatus());
+            ps.setBoolean(6, o.isPayment());
+            if (o.getCartId() != null)
+                ps.setInt(7, o.getCartId());
+            else
+                ps.setNull(7, java.sql.Types.INTEGER);
+
+            ps.setInt(8, o.getId());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    
+    // ====================================================================
+    // GET ORDER BY ID
+    // ====================================================================
     public Order getOrderById(int id) throws SQLException {
+
         String sql = "SELECT * FROM orders WHERE id = ?";
 
-        Connection conn = ConnectJDBC.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, id);
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ResultSet rs = ps.executeQuery();
+            ps.setInt(1, id);
 
-        if (rs.next()) return mapOrder(rs);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return mapOrder(rs);
+            }
+        }
+
         return null;
     }
 
-    // Lấy order theo cartId
+    // ====================================================================
+    // GET ORDER BY CART ID
+    // ====================================================================
     public Order getOrderByCart(int cartId) throws SQLException {
+
         String sql = "SELECT * FROM orders WHERE cart_id = ?";
 
-        Connection conn = ConnectJDBC.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, cartId);
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ResultSet rs = ps.executeQuery();
+            ps.setInt(1, cartId);
 
-        if (rs.next()) return mapOrder(rs);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return mapOrder(rs);
+            }
+        }
+
         return null;
     }
 
-    // Admin cập nhật trạng thái
+    // ====================================================================
+    // UPDATE STATUS
+    // ====================================================================
     public boolean updateStatus(int orderId, String status) throws SQLException {
+
         String sql = "UPDATE orders SET status = ? WHERE id = ?";
-        Connection conn = ConnectJDBC.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
 
-        ps.setString(1, status);
-        ps.setInt(2, orderId);
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        return ps.executeUpdate() > 0;
+            ps.setString(1, status);
+            ps.setInt(2, orderId);
+
+            return ps.executeUpdate() > 0;
+        }
     }
 
-    // Admin thay đổi cartId và tổng tiền
+    // ====================================================================
+    // UPDATE CART & TOTAL
+    // ====================================================================
     public boolean updateCart(int orderId, int newCartId, int newTotal) throws SQLException {
+
         String sql = "UPDATE orders SET cart_id = ?, total_amount = ? WHERE id = ?";
 
-        Connection conn = ConnectJDBC.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, newCartId);
-        ps.setInt(2, newTotal);
-        ps.setInt(3, orderId);
+            ps.setInt(1, newCartId);
+            ps.setInt(2, newTotal);
+            ps.setInt(3, orderId);
 
-        return ps.executeUpdate() > 0;
+            return ps.executeUpdate() > 0;
+        }
     }
 
-    // Helper: map resultset → Order object
+    // ====================================================================
+    // DELETE ORDER (Controller yêu cầu!)
+    // ====================================================================
+    public boolean deleteOrder(int id) throws SQLException {
+
+        String sql = "DELETE FROM orders WHERE id = ?";
+
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    // ====================================================================
+    // MAP RESULTSET TO OBJECT
+    // ====================================================================
     private Order mapOrder(ResultSet rs) throws SQLException {
         Order o = new Order();
 
         o.setId(rs.getInt("id"));
-        o.setCartId(rs.getInt("cart_id"));
+
+        int cartId = rs.getInt("cart_id");
+        o.setCartId(rs.wasNull() ? null : cartId);
+
         o.setFullName(rs.getString("full_name"));
         o.setPhone(rs.getString("phone"));
         o.setShippingAddress(rs.getString("shipping_address"));

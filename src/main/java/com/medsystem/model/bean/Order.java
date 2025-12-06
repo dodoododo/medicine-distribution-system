@@ -11,7 +11,7 @@ public class Order {
     private String shippingAddress;     // shipping_address TEXT
     private int totalAmount;            // total_amount INT
     private String status;              // ENUM: PENDING, PROCESSING, SHIPPING, DELIVERED, CANCELLED
-    private boolean payment;            // payment TINYINT(1)
+    private boolean payment;            // payment TINYINT(1) defalt 0 is cash, 1 is Banking
     private Timestamp orderDate;        // order_date TIMESTAMP
     private Cart cart;                  // (optional reference)
 
