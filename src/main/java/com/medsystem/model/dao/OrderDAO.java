@@ -85,6 +85,27 @@ public class OrderDAO {
             return ps.executeUpdate() > 0;
         }
     }
+    
+    public List<Order> getOrdersByUserId(int userId) throws SQLException {
+        List<Order> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC";
+
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Order o = mapOrder(rs); // nếu bạn có hàm mapOrder()
+                list.add(o);
+            }
+        }
+
+        return list;
+    }
+
 
     
     // ====================================================================
