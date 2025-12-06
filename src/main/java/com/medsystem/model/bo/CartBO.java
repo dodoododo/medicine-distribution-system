@@ -3,6 +3,8 @@ package com.medsystem.model.bo;
 import com.medsystem.model.bean.Cart;
 import com.medsystem.model.bean.CartProduct;
 import com.medsystem.model.dao.CartDAO;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class CartBO {
@@ -23,6 +25,11 @@ public class CartBO {
         }
         return cart;
     }
+
+    public Cart createCart(int userId) {
+        Cart newCart = cartDAO.createCart(userId);
+        return newCart;
+    }
     
     public Cart getNewestCartByUserId(int userId) {
         Cart cart = cartDAO.getNewestCartByUserId(userId);
@@ -31,6 +38,10 @@ public class CartBO {
             cart.setItems(items);
         }
         return cart;
+    }
+    
+    public Cart createNewCartAfterOrder(int userId) {
+        return cartDAO.createNewCartAfterOrder(userId);
     }
 
     // Thêm wrapper để xóa sản phẩm qua CartProductBO
@@ -51,5 +62,10 @@ public class CartBO {
     // Lấy CartProduct riêng
     public CartProduct getCartProduct(int cartId, int productId) {
         return cartProductBO.getCartProduct(cartId, productId);
+    }
+    
+
+    public Cart getCartById(Integer id) throws SQLException {
+        return cartDAO.getCartById(id);
     }
 }
