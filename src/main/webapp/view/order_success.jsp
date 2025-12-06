@@ -111,7 +111,7 @@
 
     <!-- Buttons -->
     <div class="d-flex gap-3 justify-content-center mt-4">
-        <a href="${pageContext.request.contextPath}/order?action=tracking"
+        <a href="${pageContext.request.contextPath}/my-orders"
            class="btn btn-main px-4 py-2">Theo dõi đơn hàng</a>
 
         <a href="${pageContext.request.contextPath}/"
