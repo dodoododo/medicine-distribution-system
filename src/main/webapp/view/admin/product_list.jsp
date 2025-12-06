@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <div class="container mt-4">
     <h3>Quản lý sản phẩm</h3>
@@ -36,7 +38,7 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td>${p.price}</td>
+                    <td><fmt:formatNumber value="${p.price}" type="number" maxFractionDigits="0" /></td>
                     <td>${p.stockQuantity}</td>
                     <td>${p.manufacturer}</td>
                     <td>

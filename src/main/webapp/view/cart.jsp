@@ -218,8 +218,8 @@
                 <img src="<%=p.getImageUrl()%>" alt="<%=p.getName()%>">
                 <%=p.getName()%>
             </td>
-
             <td><%=p.getPrice()%> VND</td>
+
 
 			<td class="flex-center">
 			    <form method="post" action="<%=request.getContextPath()%>/cart" style="display:inline;">
@@ -241,7 +241,7 @@
 			    </form>
 			</td>
 
-            <td><%=p.getPrice() * cp.getQuantity()%> VND</td>
+            <td><%= String.format("%,d", p.getPrice() * cp.getQuantity())%> VND</td>
 
             <td>
                 <form method="post" action="<%=request.getContextPath()%>/cart">
@@ -261,13 +261,18 @@
             <h3>Tổng Thanh Toán</h3>
 
             <div><span>Giá Hàng:</span><span>
-                <%= items.stream().mapToDouble(cp -> cp.getProduct().getPrice() * cp.getQuantity()).sum() %> VND
+                <%
+				    int subtotal = items.stream()
+				        .mapToInt(cp -> cp.getProduct().getPrice() * cp.getQuantity())
+				        .sum();
+				%>
+				<%= String.format("%,d", subtotal) %> VND
             </span></div>
 
             <div><span>Giá Ship:</span><span>Miễn Phí</span></div>
             <div><strong>Tổng Thanh Toán:</strong>
-                <strong>
-                    <%= items.stream().mapToDouble(cp -> cp.getProduct().getPrice() * cp.getQuantity()).sum() %> VND
+                <strong>  
+					<%= String.format("%,d", subtotal) %> VND
                 </strong>
             </div>
 

@@ -4,8 +4,8 @@
 <%
     com.medsystem.model.bean.User user = (com.medsystem.model.bean.User) request.getAttribute("user");
 	List<CartProduct> cartItems = (List<CartProduct>) request.getAttribute("cartItems");
-	Double subtotal = (Double) request.getAttribute("cartSubtotal");
-	Double total = (Double) request.getAttribute("cartTotal");
+	int subtotal = (int) request.getAttribute("cartSubtotal");
+	int total = (int) request.getAttribute("cartTotal");
 %>
 
 <!DOCTYPE html>
@@ -86,14 +86,14 @@
 			    <%
 			        if (cartItems != null) {
 			            for (CartProduct cp : cartItems) {
-			                double lineTotal = cp.getProduct().getPrice() * cp.getQuantity();
+			                int lineTotal = cp.getProduct().getPrice() * cp.getQuantity();
 			    %>
 			
 			    <tr>
 			        <td><%= cp.getProduct().getName() %></td>
 			        <td><%= cp.getQuantity() %></td>
-			        <td><%= String.format("%.0f", cp.getProduct().getPrice()) %> VND</td>
-			        <td><%= String.format("%.0f", lineTotal) %> VND</td>
+			        <td><%= String.format("%,d", cp.getProduct().getPrice()) %> VND</td>
+			        <td><%= String.format("%,d", lineTotal) %> VND</td>
 			    </tr>
 			
 			    <%
@@ -107,7 +107,7 @@
 
         <div class="d-flex justify-content-between">
             <span>Tổng Tiền Hàng:</span>
-            <span><%= String.format("%.0f", subtotal) %> VND</span>
+  			<span><%= String.format("%,d", subtotal) %> VND</span>
         </div>
 
         <div class="d-flex justify-content-between">
@@ -117,7 +117,7 @@
 
         <div class="d-flex justify-content-between fw-bold mt-2">
             <span>Tổng:</span>
-            <span><%= String.format("%.0f", total) %> VND</span>
+    		<span><%= String.format("%,d", total) %> VND</span>
         </div>
 
         <hr>

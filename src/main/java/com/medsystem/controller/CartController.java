@@ -50,10 +50,10 @@ public class CartController extends HttpServlet {
         String action = req.getParameter("action");
         if ("checkout".equals(action)) {
 
-            Cart cart = cartBO.getCartByUserId(userId);
+            Cart cart = cartBO.getNewestCartByUserId(userId);
 
-            double subtotal = cart.getItems().stream()
-                    .mapToDouble(i -> i.getProduct().getPrice() * i.getQuantity())
+            int subtotal = cart.getItems().stream()
+                    .mapToInt(i -> i.getProduct().getPrice() * i.getQuantity())
                     .sum();
 
             req.setAttribute("user", session.getAttribute("user"));
@@ -69,7 +69,7 @@ public class CartController extends HttpServlet {
         }
 
         // --- Lấy hoặc tạo cart ---
-        Cart cart = cartBO.getCartByUserId(userId);
+        Cart cart = cartBO.getNewestCartByUserId(userId);
 
         req.setAttribute("cart", cart);
         req.setAttribute("cartItems", cart.getItems());
@@ -94,7 +94,7 @@ public class CartController extends HttpServlet {
         int userId = ((com.medsystem.model.bean.User) session.getAttribute("user")).getId();
 
         // --- Lấy giỏ hàng ---
-        Cart cart = cartBO.getCartByUserId(userId);
+        Cart cart = cartBO.getNewestCartByUserId(userId);
         int cartId = cart.getId();
 
         String action = req.getParameter("action");
@@ -115,7 +115,7 @@ public class CartController extends HttpServlet {
             case "update": {
                 int productId = Integer.parseInt(req.getParameter("productId"));
                 int newQty = Integer.parseInt(req.getParameter("quantity"));
-                cartBO.addOrUpdateProduct(cartId, productId, newQty - cartBO.getCartByUserId(userId)
+                cartBO.addOrUpdateProduct(cartId, productId, newQty - cartBO.getNewestCartByUserId(userId)
                         .getItems()
                         .stream()
                         .filter(i -> i.getProductId() == productId)

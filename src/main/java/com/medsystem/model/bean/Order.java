@@ -1,32 +1,47 @@
 package com.medsystem.model.bean;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Order {
-    private int id;
-    private Integer cartId;
-    private String fullName;
-    private String phone;
-    private String shippingAddress;
-    private BigDecimal totalAmount;
-    private String status;
-    private Timestamp orderDate;
-    private Cart cart;
+
+    private int id;                     // id INT NOT NULL
+    private Integer cartId;             // cart_id INT NULL
+    private String fullName;            // full_name VARCHAR(100)
+    private String phone;               // phone VARCHAR(20)
+    private String shippingAddress;     // shipping_address TEXT
+    private int totalAmount;            // total_amount INT
+    private String status;              // ENUM: PENDING, PROCESSING, SHIPPING, DELIVERED, CANCELLED
+    private boolean payment;            // payment TINYINT(1)
+    private Timestamp orderDate;        // order_date TIMESTAMP
+    private Cart cart;                  // (optional reference)
 
     public Order() {
     }
 
-    public Order(Integer cartId, String fullName, String phone, String shippingAddress, BigDecimal totalAmount, String status) {
+    public Order(Integer cartId, String fullName, String phone, String shippingAddress,
+                 int totalAmount, String status, boolean payment) {
         this.cartId = cartId;
         this.fullName = fullName;
         this.phone = phone;
         this.shippingAddress = shippingAddress;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.payment = payment;
     }
+    
+    public Order(Integer cartId, String fullName, String phone, String shippingAddress,
+            int totalAmount, boolean payment) {
+	   this.cartId = cartId;
+	   this.fullName = fullName;
+	   this.phone = phone;
+	   this.shippingAddress = shippingAddress;
+	   this.totalAmount = totalAmount;
+	   this.payment = payment;
+	   this.status = "PENDING"; // default status
+	}
 
-    public Order(int id, Integer cartId, String fullName, String phone, String shippingAddress, BigDecimal totalAmount, String status, Timestamp orderDate) {
+    public Order(int id, Integer cartId, String fullName, String phone, String shippingAddress,
+                 int totalAmount, String status, boolean payment, Timestamp orderDate) {
         this.id = id;
         this.cartId = cartId;
         this.fullName = fullName;
@@ -34,10 +49,11 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.payment = payment;
         this.orderDate = orderDate;
     }
 
-    // --- Getters và Setters ---
+    // --- GETTERS & SETTERS ---
 
     public int getId() {
         return id;
@@ -79,11 +95,11 @@ public class Order {
         this.shippingAddress = shippingAddress;
     }
 
-    public BigDecimal getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -93,6 +109,14 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean isPayment() {
+        return payment;
+    }
+
+    public void setPayment(boolean payment) {
+        this.payment = payment;
     }
 
     public Timestamp getOrderDate() {
