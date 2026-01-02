@@ -210,66 +210,68 @@ Admins can:
 ### Home Page
 <img width="1919" height="969" alt="Screenshot 2025-12-13 230938" src="https://github.com/user-attachments/assets/1592686a-b5c6-45c0-8a36-a3cd78476120" />
 
+---
 ### Login/Sign-up
 
 <img width="1919" height="970" alt="Screenshot 2025-12-13 231325" src="https://github.com/user-attachments/assets/ed8eca99-14da-4ef6-98ae-7b6988132451" />
 <img width="1916" height="970" alt="Screenshot 2025-12-13 231421" src="https://github.com/user-attachments/assets/b8c8a613-773d-4f58-85b0-6fb24375dfce" />
 
+---
 ### Sort product by price/category
 <img width="1919" height="973" alt="Screenshot 2025-12-13 232045" src="https://github.com/user-attachments/assets/856315f2-5888-4778-a91e-46c8d9c16110" />
 
-
+---
 ### User's cart
 <img width="1919" height="969" alt="Screenshot 2025-12-13 232356" src="https://github.com/user-attachments/assets/e9045d80-9fdb-45e5-ae7c-48705c9a3260" />
 
-
+---
 ### Checkout Form
 <img width="1919" height="963" alt="Screenshot 2025-12-13 232524" src="https://github.com/user-attachments/assets/04d815d8-e591-4e0d-845d-8c1a7cde24c5" />
 
-
+---
 ### Order Success
 <img width="1919" height="961" alt="Screenshot 2025-12-13 233152" src="https://github.com/user-attachments/assets/db1ea6c8-6645-4f6a-a747-f7e84343a127" />
 
-
+---
 ### Order Failed
 <img width="1919" height="968" alt="Screenshot 2025-12-13 233236" src="https://github.com/user-attachments/assets/70bc76c9-03bc-45fd-a44d-22ec92f40db6" />
 
-
+---
 ### Track order status/ View order history
 <img width="1919" height="967" alt="Screenshot 2025-12-13 233331" src="https://github.com/user-attachments/assets/98e16a48-6f99-4e0e-98d5-d83891a338d1" />
 <img width="1919" height="956" alt="Screenshot 2025-12-13 233707" src="https://github.com/user-attachments/assets/529e2155-ad54-4b6b-97a6-ebb970fd594a" />
 
-
+---
 ### User profile
 <img width="1919" height="966" alt="Screenshot 2025-12-13 234557" src="https://github.com/user-attachments/assets/982475f0-ac34-423d-a4e6-8b294311cbf0" />
 
-
+---
 ## Admin features
 
 ### Admin Screen - Catergory Management
 <img width="1919" height="966" alt="Screenshot 2025-12-13 234831" src="https://github.com/user-attachments/assets/b4cd5ca0-736b-41df-ae17-5302834d4882" />
 
-
+---
 ### Product management
 <img width="1919" height="958" alt="Screenshot 2025-12-13 235305" src="https://github.com/user-attachments/assets/28632f45-d8c8-4ff7-a6c2-bab60aafebea" />
 
-
+---
 ### User Managemnt
 <img width="1919" height="964" alt="Screenshot 2025-12-13 235430" src="https://github.com/user-attachments/assets/6dbd9cb3-9fb3-465f-a9e7-f7dd2602f9be" />
 
-
+---
 ### Order Management
 <img width="1919" height="963" alt="Screenshot 2025-12-14 000505" src="https://github.com/user-attachments/assets/eefa3a6e-0be8-4258-9845-8e2cd24fbc65" />
 
-
+---
 ### Order Details
 <img width="1919" height="961" alt="Screenshot 2025-12-14 000556" src="https://github.com/user-attachments/assets/6cc1450f-10a1-4b4b-acba-bf016a69c9b7" />
 
-
+---
 ### Update Order's status
 <img width="1919" height="969" alt="Screenshot 2025-12-14 000639" src="https://github.com/user-attachments/assets/3350ec02-2f09-4a17-ab79-7fb181aa67ab" />
 
-
+---
 ### Store's statistics
 <img width="1919" height="971" alt="Screenshot 2025-12-14 000722" src="https://github.com/user-attachments/assets/e065af75-2fb2-405f-a5bd-fbc9a2c07d2c" />
 <img width="1919" height="972" alt="Screenshot 2025-12-14 000937" src="https://github.com/user-attachments/assets/65272886-56e9-4412-ac90-2f33e32d5f4f" />
