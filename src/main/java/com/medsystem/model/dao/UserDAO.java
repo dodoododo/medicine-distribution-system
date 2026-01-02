@@ -69,17 +69,34 @@ public class UserDAO {
         }
     }
 
-    public boolean updateUser(User u) throws SQLException {
-        String sql = "UPDATE users SET full_name=?, email=?, password=?, phone=?, address=?, role=? WHERE id=?";
+
+    public boolean updateUserInfo(User u) throws SQLException {
+        String sql = "UPDATE users SET full_name=?, email=?, phone=?, address=?, role=? WHERE id=?";
+
         try (Connection conn = ConnectJDBC.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, u.getFullName());
             ps.setString(2, u.getEmail());
-            ps.setString(3, u.getPassword());
-            ps.setString(4, u.getPhone());
-            ps.setString(5, u.getAddress());
-            ps.setInt(6, u.getRole());
-            ps.setInt(7, u.getId());
+            ps.setString(3, u.getPhone());
+            ps.setString(4, u.getAddress());
+            ps.setInt(5, u.getRole());
+            ps.setInt(6, u.getId());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    // 2. Update mật khẩu
+    public boolean updatePassword(int userId, String newPassword) throws SQLException {
+        String sql = "UPDATE users SET password=? WHERE id=?";
+
+        try (Connection conn = ConnectJDBC.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, newPassword);
+            ps.setInt(2, userId);
+
             return ps.executeUpdate() > 0;
         }
     }

@@ -16,7 +16,9 @@ public class ChangePasswordController extends HttpServlet {
     private final UserBO userBO = new UserBO();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         HttpSession session = req.getSession();
         User currentUser = (User) session.getAttribute("user");
 
@@ -25,18 +27,13 @@ public class ChangePasswordController extends HttpServlet {
             return;
         }
 
-        String idParam = req.getParameter("id");
-        if (idParam == null || !idParam.equals(String.valueOf(currentUser.getId()))) {
-            // Nếu id trên URL khác với id user hiện tại → redirect về home
-            resp.sendRedirect(req.getContextPath() + "/");
-            return;
-        }
-
         req.getRequestDispatcher("/view/changepassword.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         HttpSession session = req.getSession();
         User currentUser = (User) session.getAttribute("user");
 
@@ -62,9 +59,10 @@ public class ChangePasswordController extends HttpServlet {
         }
 
         try {
+            userBO.updatePassword(currentUser.getId(), newPassword);
             currentUser.setPassword(newPassword);
-            userBO.updateUser(currentUser); // cập nhật mật khẩu
             session.setAttribute("user", currentUser);
+
             req.setAttribute("success", "Đổi mật khẩu thành công!");
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

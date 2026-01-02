@@ -9,68 +9,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Bán Thuốc Y - Đông Tây Y</title>
+
+    <!-- Bootstrap + FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body { font-family: 'Roboto', sans-serif; background-color: #F8F9FA; }
-        .btn-primary { background-color: #4CAF50; border-color: #4CAF50; }
-        .btn-secondary { background-color: #3FA7F5; border-color: #3FA7F5; }
-        a { color: #3FA7F5; text-decoration: none; }
-        .header-bg { background-color: #FFFFFF; border-bottom: 1px solid #E0E0E0; }
+        header {
+            width: 100%;
+            padding: 20px 0;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    		border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-container {
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            margin-left: 80px;
+        }
+
+        .nav-menu {
+            margin-left: 120px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+        }
+
+        .nav-right {
+            margin-right: 80px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-input {
+            width: 225px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
         .icon-med { color: #4CAF50; }
     </style>
 </head>
+
 <body>
-<header class="header-bg py-2">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <a href="<%=contextPath%>/" class="fw-bold fs-4 text-decoration-none">
-                    <i class="fas fa-pills icon-med me-2"></i>Sức Khỏe Việt
-                </a>
-            </div>
-            <div class="col-md-6">
-                <form class="d-flex" action="<%=contextPath%>/">
-                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <div class="col-md-3 text-end">
-                <% if (currentUser == null) { %>
-                    <a href="<%=contextPath%>/login" class="me-3" style="text-decoration: none;"><i class="fas fa-user icon-med"></i> Đăng nhập</a>
+<header class="navbar-top">
+    <div class="nav-container">
+
+        <!-- LEFT: LOGO + MENU -->
+        <div class="nav-left">
+            <h2 class="logo">
+
+                <% if (currentUser != null && currentUser.isAdmin()) { %>
+                    <a href="<%=contextPath%>/admin" style="text-decoration:none; color:#000;">
+                        <i class="fas fa-pills icon-med me-2"></i>Sức Khỏe Việt
+                    </a>
                 <% } else { %>
-					<div class="d-flex align-items-center justify-content-end">
-					    <a href="<%=contextPath%>/cart.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
-					        <i class="fas fa-shopping-cart icon-med me-1"></i>
-					    </a>
-					
-					    <% if (currentUser.isAdmin()) { %>
-					        <a href="<%=contextPath%>/admin/dashboard.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
-					            <i class="fas fa-chart-bar icon-med me-1"></i>
-					            <span>Dashboard</span>
-					        </a>
-					        <a href="<%=contextPath%>/admin/orders.jsp" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
-					            <i class="fas fa-box icon-med me-1"></i>
-					            <span>Đơn hàng</span>
-					        </a>
-					    <% } %>
-					    
-					    <a href="<%=contextPath%>/profile?id=<%=currentUser.getId()%>" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
-					        <i class="fas fa-user-circle icon-med fs-3 me-1"></i>
-					    </a>
-						
-					    <a href="<%=contextPath%>/logout" class="d-inline-flex align-items-center me-3" style="text-decoration: none;">
-					        <i class="fas fa-sign-out-alt icon-med me-1"></i>
-					        <span>Đăng xuất</span>
-					    </a>
-					</div>
+                    <a href="<%=contextPath%>/" style="text-decoration:none; color:#000;">
+                        <i class="fas fa-pills icon-med me-2"></i>Sức Khỏe Việt
+                    </a>
                 <% } %>
-            </div>
+
+            </h2>
+        </div>
+
+        <!-- RIGHT: SEARCH + USER AREA -->
+        <div class="nav-right">
+
+            <!-- SEARCH -->
+            <form action="<%=contextPath%>/" method="get">
+                <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm" name="search">
+            </form>
+
+            <% if (currentUser == null) { %>
+
+                <!-- Chưa đăng nhập -->
+                <a href="<%=contextPath%>/login" class="d-inline-flex align-items-center gap-1" style="text-decoration: none">
+                    <i class="fas fa-user icon-med"></i> Đăng nhập
+                </a>
+
+            <% } else { %>
+
+                <!-- Đã đăng nhập -->
+                <a href="<%=contextPath%>/cart?userId=<%=currentUser.getId()%>" class="icon" title="Giỏ hàng">
+                    <i class="fas fa-shopping-cart icon-med"></i>
+                </a>
+                
+                <a href="<%=contextPath%>/my-orders?userId=<%=currentUser.getId()%>" class="icon" title="Đơn hàng">
+                    <i class="fas fa-truck icon-med"></i>
+                </a>
+
+                <a href="<%=contextPath%>/profile?id=<%=currentUser.getId()%>" class="icon" title="Tài khoản">
+                    <i class="fas fa-user-circle icon-med"></i>
+                </a>
+
+                <a href="<%=contextPath%>/logout" class="icon d-flex align-items-center" 
+                   title="Đăng xuất" style="text-decoration:none;">
+                    <i class="fas fa-sign-out-alt icon-med me-1"></i>
+                </a>
+
+            <% } %>
+
         </div>
     </div>
 </header>
 
-<!-- Popup Modal for Login Suggestion -->
+<!-- POPUP LOGIN -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -88,3 +157,6 @@
         </div>
     </div>
 </div>
+
+</body>
+</html>

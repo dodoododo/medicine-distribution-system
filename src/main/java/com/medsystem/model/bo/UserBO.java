@@ -12,6 +12,13 @@ public class UserBO {
     public List<User> getAllUsers() throws SQLException { return dao.getAllUsers(); }
     public User getUserById(int id) throws SQLException { return dao.getUserById(id); }
     public boolean addUser(User u) throws SQLException { return dao.addUser(u); }
-    public boolean updateUser(User u) throws SQLException { return dao.updateUser(u); }
+
+    public boolean updateUserInfo(User u) throws SQLException {
+        return dao.updateUserInfo(u);
+    }
+
+    public boolean updatePassword(int id, String newPassword) throws SQLException {
+        return dao.updatePassword(id, newPassword);
+    }
     public boolean deleteUser(int id) throws SQLException { return dao.deleteUser(id); }
 }

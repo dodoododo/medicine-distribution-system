@@ -42,13 +42,19 @@
         <!-- Giá -->
         <div class="mb-3">
             <label for="price" class="form-label">Giá</label>
-            <input type="number" step="0.01" class="form-control" name="price" value="${product != null ? product.price : 0}" required>
+            <input type="number" step="1000" class="form-control" name="price" value="${product != null ? product.price : 0}" required>
         </div>
 
         <!-- Số lượng -->
         <div class="mb-3">
             <label for="stockQuantity" class="form-label">Số lượng</label>
             <input type="number" class="form-control" name="stockQuantity" value="${product != null ? product.stockQuantity : 0}" required>
+        </div>
+        
+        <!-- Ảnh -->
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Ảnh</label>
+            <input type="text" class="form-control" name="imageUrl" value="${product != null ? product.imageUrl : 0}">
         </div>
 
         <!-- Nhà sản xuất -->

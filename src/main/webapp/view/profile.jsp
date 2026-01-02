@@ -4,7 +4,7 @@
     com.medsystem.model.bean.User user = (com.medsystem.model.bean.User) request.getAttribute("user");
 %>
 
-<main class="container mt-5">
+<main class="container mt-5" style="padding-bottom: 40px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
@@ -44,6 +44,7 @@
 						    <label class="form-label">Địa chỉ</label>
 						    <textarea class="form-control" name="address"><%=user.getAddress()%></textarea>
 						</div>
+						<h5 style="color: red; font-style:italic; ">*Lưu Ý: Các Thông Tin Trên Sẽ Được Dùng Để Đặt Hàng</h5>
 						
 						<!-- Button dẫn tới trang đổi mật khẩu -->
 						<div class="mb-3 text-end">
